@@ -12,9 +12,9 @@ Open api server: `yarn dev`
 
 # Endpoints
 
-GET /api/coffeeData/ to look at all coffee members
-POST /api/coffeeData/ to add a new member with not stamps or redeemable free cofees
-PUT /api/coffeeData/addStamp/:id Add a stamp to specific member by id
+GET /api/coffeeData/ to look at all coffee members <br>
+POST /api/coffeeData/ to add a new member with not stamps or redeemable free coffees <br>
+PUT /api/coffeeData/addStamp/:id Add a stamp to specific member by id <br>
 PUT /api/coffeeData/redeemFreeCoffee/:id reduce free coffees by 1 but not less than 0
 
 # Typical API Response Body
