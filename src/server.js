@@ -50,6 +50,24 @@ app.post("/api/coffeeData", (request, response) => {
     }
 });
 
+app.put("/api/coffeeData/:id", (request, response) => {
+    try {
+        const id = request.params.id;
+        const entryToEdit = coffeeData.find((obj) => obj.id == id);
+        if (!entryToEdit) {
+            throw new Error("No entry found with that id");
+        }
+        entryToEdit.stamps++;
+        if (entryToEdit.stamps > 5) {
+            entryToEdit.stamps = 0;
+            entryToEdit.freeCoffees++;
+        }
+        response.json(entryToEdit);
+    } catch (err) {
+        response.json({ error: err.message });
+    }
+});
+
 //use the environment variable PORT, or 4000 as a fallback
 const PORT = process.env.PORT ?? 4000;
 
