@@ -1,6 +1,8 @@
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
+// @ts-ignore
+import coffeeData from "./coffeeData.json" assert { type: "json" };
 
 const app = express();
 
@@ -20,29 +22,6 @@ app.listen(PORT, () => {
     );
 });
 
-let data = [
-    {
-        id: "1",
-        name: "Arto",
-        stamps: 0,
-        freeCoffees: 0,
-    },
-    {
-        id: "2",
-        name: "Ada",
-        stamps: 0,
-        freeCoffees: 0,
-    },
-    {
-        id: "3",
-        name: "Dan",
-        stamps: 0,
-        freeCoffees: 0,
-    },
-    {
-        id: "4",
-        name: "Mary",
-        stamps: 0,
-        freeCoffees: 0,
-    },
-];
+app.get("/api/data/", (request, response) => {
+    response.json(coffeeData);
+});
