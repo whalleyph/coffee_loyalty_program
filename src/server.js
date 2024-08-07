@@ -38,10 +38,10 @@ app.post("/api/coffeeData", (request, response) => {
             }
         }
         const newEntry = {
-            id: `${maxID + 1}`,
-            stamps: 0,
-            freeCoffee: 0,
+            id: maxID + 1,
             name: name,
+            stamps: 0,
+            freeCoffees: 0,
         };
         coffeeData.push(newEntry);
         response.json(newEntry);
