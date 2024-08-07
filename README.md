@@ -2,12 +2,12 @@
 
 # Prerequisites
 
-yarn
+yarn <br>
 node.js
 
 # Startup
 
-Install dependencies: `yarn`
+Install dependencies: `yarn` <br>
 Open api server: `yarn dev`
 
 # Endpoints
