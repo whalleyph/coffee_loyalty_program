@@ -19,3 +19,30 @@ app.listen(PORT, () => {
         `Your express app started listening on ${PORT}, at ${new Date()}`
     );
 });
+
+let data = [
+    {
+        id: "1",
+        name: "Arto",
+        stamps: 0,
+        freeCoffees: 0,
+    },
+    {
+        id: "2",
+        name: "Ada",
+        stamps: 0,
+        freeCoffees: 0,
+    },
+    {
+        id: "3",
+        name: "Dan",
+        stamps: 0,
+        freeCoffees: 0,
+    },
+    {
+        id: "4",
+        name: "Mary",
+        stamps: 0,
+        freeCoffees: 0,
+    },
+];
