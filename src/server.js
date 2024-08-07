@@ -1,8 +1,6 @@
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
-// @ts-ignore
-import coffeeData from "./coffeeData.json" assert { type: "json" };
 
 const app = express();
 
@@ -12,6 +10,15 @@ app.use(morgan("dev"));
 app.use(cors());
 //parse body text of requests having content-type application/json, attaching result to `req.body`
 app.use(express.json());
+
+const coffeeData = [
+    {
+        id: 1,
+        name: "TestUser",
+        stamps: 5,
+        freeCoffees: 5,
+    },
+];
 
 app.get("/api/coffeeData/", (req, res) => {
     res.json(coffeeData);
@@ -53,7 +60,7 @@ app.post("/api/coffeeData", (req, res) => {
 app.put("/api/coffeeData/addStamp/:id", (req, res) => {
     try {
         const id = req.params.id;
-        const entryToEdit = coffeeData.find((obj) => obj.id == id);
+        const entryToEdit = coffeeData.find((obj) => obj.id === parseInt(id));
         if (!entryToEdit) {
             throw new Error("No entry found with that id");
         }
@@ -71,7 +78,7 @@ app.put("/api/coffeeData/addStamp/:id", (req, res) => {
 app.put("/api/coffeeData/redeemFreeCoffee/:id", (req, res) => {
     try {
         const id = req.params.id;
-        const entryToEdit = coffeeData.find((obj) => obj.id == id);
+        const entryToEdit = coffeeData.find((obj) => obj.id === parseInt(id));
         if (!entryToEdit) {
             throw new Error("No entry found with that id");
         }
