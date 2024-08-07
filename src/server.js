@@ -6,20 +6,20 @@ import coffeeData from "./coffeeData.json" assert { type: "json" };
 
 const app = express();
 
-//allow morgan logger to get access to each request before and after our handlers
+//allow morgan logger to get access to each req before and after our handlers
 app.use(morgan("dev"));
 //auto-include CORS headers to allow consumption of our content by in-browser js loaded from elsewhere
 app.use(cors());
 //parse body text of requests having content-type application/json, attaching result to `req.body`
 app.use(express.json());
 
-app.get("/api/coffeeData/", (request, response) => {
-    response.json(coffeeData);
+app.get("/api/coffeeData/", (req, res) => {
+    res.json(coffeeData);
 });
 
-app.post("/api/coffeeData", (request, response) => {
+app.post("/api/coffeeData", (req, res) => {
     try {
-        const name = request.body.name;
+        const name = req.body.name;
         if (!name) {
             throw new Error("Name field is required");
         }
@@ -44,15 +44,15 @@ app.post("/api/coffeeData", (request, response) => {
             freeCoffees: 0,
         };
         coffeeData.push(newEntry);
-        response.json(newEntry);
+        res.json(newEntry);
     } catch (err) {
-        response.json({ error: err.message });
+        res.json({ error: err.message });
     }
 });
 
-app.put("/api/coffeeData/:id", (request, response) => {
+app.put("/api/coffeeData/addStamp/:id", (req, res) => {
     try {
-        const id = request.params.id;
+        const id = req.params.id;
         const entryToEdit = coffeeData.find((obj) => obj.id == id);
         if (!entryToEdit) {
             throw new Error("No entry found with that id");
@@ -62,9 +62,26 @@ app.put("/api/coffeeData/:id", (request, response) => {
             entryToEdit.stamps = 0;
             entryToEdit.freeCoffees++;
         }
-        response.json(entryToEdit);
+        res.json(entryToEdit);
     } catch (err) {
-        response.json({ error: err.message });
+        res.json({ error: err.message });
+    }
+});
+
+app.put("/api/coffeeData/redeemFreeCoffee/:id", (req, res) => {
+    try {
+        const id = req.params.id;
+        const entryToEdit = coffeeData.find((obj) => obj.id == id);
+        if (!entryToEdit) {
+            throw new Error("No entry found with that id");
+        }
+        if (entryToEdit.freeCoffees <= 0) {
+            throw new Error("No coffees to redeem");
+        }
+        entryToEdit.freeCoffees--;
+        res.json(entryToEdit);
+    } catch (err) {
+        res.json({ error: err.message });
     }
 });
 
